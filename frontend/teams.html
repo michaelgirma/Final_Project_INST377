@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INST377 Final Project</title>
     <style>
-        body {
+         body {
             background-color: cornflowerblue;
         }
     
@@ -48,7 +48,7 @@
             color: black;
         }
 
-        #players_container {
+        .card_container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -57,7 +57,7 @@
             padding: 20px;
         }
 
-        .player_card {
+        .team_card {
             background-color: black;
             color: cornflowerblue;
             border-radius: 10px;
@@ -67,17 +67,17 @@
             text-align: center;
         }
 
-        .player_card h3 {
+        .team_card h3 {
             margin: 0;
             font-size: 20px;
         }
 
-        .player_card p {
+        .team_card p {
             margin: 5px 0;
             font-size: 14px;
         }
 
-        #player_audio_container {
+        #team_audio_container {
             height: 75%;
             width: 45%;
             color: white;
@@ -88,12 +88,11 @@
             margin-left: 380px;
             margin-top: 20px;
         }
-
     </style>
 </head>
 <body>
     <div id="navbar_container">
-        <div id="left_navbar"> 
+        <div id="left_navbar">
             <p>HoopData</p>
         </div>
         <div id="right_navbar">
@@ -106,7 +105,7 @@
         </div>
     </div>
 
-    <div id="player_audio_container">
+    <div id="team_audio_container">
         <h2>In this web page there are options to Navigate using Audio!</h2>
         <p style="font-size: 0.9;">Ensure your Mic is enabled to be able to use this feature</p>
         <ul>
@@ -119,42 +118,37 @@
         <button id="turn_off_audio">Turn Off Audio</button>
     </div>
 
-    <div id="players_container"></div>
-
+    <div id="teams_container" class="card_container"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
 <script>
-    //pwrd: f6LhcFB9NmsCIPnX
-    async function loadPlayers() {
-        try {
-            const response = await fetch('/api/players');
-            const players = await response.json();
+    async function loadTeams() {
+      try {
+        const response = await fetch('/api/teams');
+        const teams = await response.json();
 
-            const container = document.getElementById('players_container');
-            container.innerHTML = ''; 
+        const container = document.getElementById('teams_container');
+        container.innerHTML = '';
 
-            players.forEach(player => {
-                const card = document.createElement('div');
-                card.classList.add('player_card');
+        teams.forEach(team => {
+          const card = document.createElement('div');
+          card.classList.add('team_card');
 
-                card.innerHTML = `
-                <h3>${player.first_name} ${player.last_name}</h3>
-                <p><strong>Team:</strong> ${player.team_name}</p>
-                <p><strong>Position:</strong> ${player.position}</p>
-                <p><strong>Number:</strong> ${player.jersey_number}</p>
-                <p><strong>College:</strong> ${player.college}</p>
-                <p><strong>Draft:</strong> ${player.draft_year}, Round ${player.draft_round}, Pick ${player.draft_number}</p>
-                <p><strong>Height:</strong> ${player.height}</p>
-                <p><strong>Weight:</strong> ${player.weight}</p>
-                `;
+          card.innerHTML = `
+            <h3>${team.full_name}</h3>
+            <p><strong>City:</strong> ${team.city}</p>
+            <p><strong>Abbreviation:</strong> ${team.abbreviation}</p>
+            <p><strong>Conference:</strong> ${team.conference}</p>
+            <p><strong>Division:</strong> ${team.division}</p>
+          `;
 
-                container.appendChild(card);
-            });
-        } catch (err) {
-            console.error('Error loading players:', err);
-        }
+          container.appendChild(card);
+        });
+      } catch (err) {
+        console.error('Error loading teams:', err);
+      }
     }
 
-    document.addEventListener('DOMContentLoaded', loadPlayers);
+    document.addEventListener('DOMContentLoaded', loadTeams);
 
     window.addEventListener("DOMContentLoaded", () => {
         if (annyang) {
@@ -188,6 +182,7 @@
             alert("Annyang is not supported in your browser!")
         }
     });
+
 </script>
 </body>
 </html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INST377 FInal Project</title>
+    <style>
+        body {
+            background-color: cornflowerblue;
+        }
+    
+        #navbar_container {
+            display: flex;
+            justify-content: space-between;
+            height: 50px;
+            background-color: whitesmoke;
+            border-radius: 10px;
+            border: 1px solid black;
+        }
+    
+        #left_navbar {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            width: 50%;
+        }
+
+        #left_navbar p {
+            color: cornflowerblue;
+        }
+    
+        #right_navbar {
+            width: 50%;
+        }
+    
+        #navbar_list{
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+    
+        #navbar_list li {
+            list-style-type: none;
+        }
+    
+        #navbar_list a {
+            text-decoration: none;
+            color: black;
+        }
+
+        #about_text_container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #about_audio_container {
+            height: 75%;
+            width: 45%;
+            color: white;
+            padding-left: 10px;
+            background-color: black;
+            border-radius: 10px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar_container">
+        <div id="left_navbar">
+            <p>HoopData</p>
+        </div>
+        <div id="right_navbar">
+            <ul id="navbar_list">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="players.html">Players</a></li>
+                <li><a href="teams.html">Teams</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="about_text_container">
+        <h1>Welcome to HoopData</h1>
+        <p><strong>Overview:</strong> HoopData is a website that allows fans of the NBA to educate themselves about nba athletes from the spelling of their name to the year they got drafted. You can also see information about all the teams in the NBA.</p>
+        <ol>
+            <li><strong>Instructions</strong></li>
+            <ol>
+                <li>Use the navbar to navigate to different webpages.</li>
+                <li>Scroll up down with your mousepad to see all the different information.</li>
+                <li>Try out voice commands to navigate the website as well.</li>
+            </ol>
+        </ol>
+
+        <div id="about_audio_container">
+            <h2>In this web page there are options to Navigate using Audio!</h2>
+            <p style="font-size: 0.9;">Ensure your Mic is enabled to be able to use this feature</p>
+            <ul>
+                <li>Navigate to a Different Page</li>
+                <ul>
+                    <li>Say: <strong>Navigate to (page)</strong></li>
+                </ul>
+            </ul>
+            <button id="turn_on_audio">Turn On Audio</button>
+            <button id="turn_off_audio">Turn Off Audio</button>
+        </div>
+    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+<script>
+    window.addEventListener("DOMContentLoaded", () => {
+        if (annyang) {
+            const commands = {
+                'navigate to *page': (page) => {
+                    const lowercase_page = page.toLowerCase();
+                    if (lowercase_page.includes('home')) {
+                        window.location.href = 'home.html';
+                    } else if (lowercase_page.includes('players')) {
+                        window.location.href = 'players.html';
+                    } else if (lowercase_page.includes('teams')) {
+                        window.location.href = 'teams.html';
+                    } else if (lowercase_page.includes('about')) { 
+                        window.location.href = 'about.html';
+                    } else {
+                        alert('Page not Found');
+                    }
+                }
+            };
+
+            annyang.addCommands(commands);
+
+            document.getElementById('turn_on_audio').addEventListener("click", () => {
+                annyang.start();
+            });
+
+            document.getElementById('turn_off_audio').addEventListener("click", () => {
+                annyang.abort();
+            });
+        } else {
+            alert("Annyang is not supported in your browser!")
+        }
+    });
+</script>
+</body>
+</html>
