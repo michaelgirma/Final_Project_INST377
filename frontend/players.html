@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INST377 Final Project</title>
+    <style>
+        body {
+            background-color: cornflowerblue;
+        }
+    
+        #navbar_container {
+            display: flex;
+            justify-content: space-between;
+            height: 50px;
+            background-color: whitesmoke;
+            border-radius: 10px;
+            border: 1px solid black;
+        }
+    
+        #left_navbar {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            width: 50%;
+        }
+
+        #left_navbar p {
+            color: cornflowerblue;
+        }
+    
+        #right_navbar {
+            width: 50%;
+        }
+    
+        #navbar_list{
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+    
+        #navbar_list li {
+            list-style-type: none;
+        }
+    
+        #navbar_list a {
+            text-decoration: none;
+            color: black;
+        }
+
+        #players_container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .player_card {
+            background-color: black;
+            color: cornflowerblue;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 15px;
+            width: 275px;
+            text-align: center;
+        }
+
+        .player_card h3 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .player_card p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="navbar_container">
+        <div id="left_navbar"> 
+            <p>HoopData</p>
+        </div>
+        <div id="right_navbar">
+            <ul id="navbar_list">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="players.html">Players</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="players_container"></div>
+
+    <script>
+        //pwrd: f6LhcFB9NmsCIPnX
+        async function loadPlayers() {
+            try {
+            const response = await fetch('/api/players');
+            const players = await response.json();
+
+            const container = document.getElementById('players_container');
+            container.innerHTML = ''; 
+
+            players.forEach(player => {
+                const card = document.createElement('div');
+                card.classList.add('player_card');
+
+                card.innerHTML = `
+                <h3>${player.first_name} ${player.last_name}</h3>
+                <p><strong>Team:</strong> ${player.team_name}</p>
+                <p><strong>Position:</strong> ${player.position}</p>
+                <p><strong>Number:</strong> ${player.jersey_number}</p>
+                <p><strong>College:</strong> ${player.college}</p>
+                <p><strong>Draft:</strong> ${player.draft_year}, Round ${player.draft_round}, Pick ${player.draft_number}</p>
+                <p><strong>Height:</strong> ${player.height}</p>
+                <p><strong>Weight:</strong> ${player.weight}</p>
+                `;
+
+                container.appendChild(card);
+            });
+            } catch (err) {
+            console.error('Error loading players:', err);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadPlayers);
+    </script>
+</body>
+</html>

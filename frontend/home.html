@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INST377 Final Project</title>
+    <style>
+        body {
+            background-color: cornflowerblue;
+        }
+    
+        #navbar_container {
+            display: flex;
+            justify-content: space-between;
+            height: 50px;
+            background-color: whitesmoke;
+            border-radius: 10px;
+            border: 1px solid black;
+        }
+    
+        #left_navbar {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            width: 50%;
+        }
+
+        #left_navbar p {
+            color: cornflowerblue;
+        }
+    
+        #right_navbar {
+            width: 50%;
+        }
+    
+        #navbar_list{
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+    
+        #navbar_list li {
+            list-style-type: none;
+        }
+    
+        #navbar_list a {
+            text-decoration: none;
+            color: black;
+        }
+
+        #myslidercontainer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #myslider { 
+            width: 80%; 
+            height: 300px; 
+            margin-left: 520px;
+            margin-top: 50px;
+        }
+
+        #home_title_container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        #home_title_container h1 {
+            font-size: 100px;
+        }
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/simple-slider@1.0.0/dist/simpleslider.min.js"></script>
+</head>
+<body>
+    <div id="navbar_container">
+        <div id="left_navbar">
+            <p>HoopData</p>
+        </div>
+        <div id="right_navbar">
+            <ul id="navbar_list">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="players.html">Players</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="home_title_container">
+        <h1>Welcome</h1>
+    </div>
+
+    <div id="myslidercontainer">
+        <div id="myslider">
+            <img src="Image1.jpg" alt="Image1">
+            <img src="Image2.jpg" alt="Image2">
+            <img src="Image3.jpg" alt="Image3">
+            <img src="Image4.jpg" alt="Image4">
+            <img src="Image5.jpg" alt="Image5">
+            <img src="Image6.jpg" alt="Image6">
+            <img src="Image7.jpg" alt="Image7">
+            <img src="Image8.jpg" alt="Image8">
+            <img src="Image9.jpg" alt="Image9">
+            <img src="Image10.jpg" alt="Image10">
+        </div>
+    </div>
+
+</body>
+<script>
+        simpleslider.getSlider({
+            container: document.getElementById('myslider'),
+            transitionTime: 1,
+            delay: 3
+        });
+</script>
+</html>
