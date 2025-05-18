@@ -48,36 +48,32 @@
             color: black;
         }
 
-        #players_container {
+        #myslidercontainer {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             justify-content: center;
+            align-items: center;
+        }
+
+        #myslider { 
+            width: 80%; 
+            height: 300px; 
+            margin-left: 520px;
+            margin-top: 50px;
+        }
+
+        #home_title_container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: 100%;
-            gap: 20px;
-            padding: 20px;
         }
 
-        .player_card {
-            background-color: black;
-            color: cornflowerblue;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            padding: 15px;
-            width: 275px;
-            text-align: center;
+        #home_title_container h1 {
+            font-size: 100px;
         }
 
-        .player_card h3 {
-            margin: 0;
-            font-size: 20px;
-        }
-
-        .player_card p {
-            margin: 5px 0;
-            font-size: 14px;
-        }
-
-        #player_audio_container {
+        #home_audio_container {
             height: 75%;
             width: 45%;
             color: white;
@@ -90,15 +86,16 @@
         }
 
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/simple-slider@1.0.0/dist/simpleslider.min.js"></script>
 </head>
 <body>
     <div id="navbar_container">
-        <div id="left_navbar"> 
+        <div id="left_navbar">
             <p>HoopData</p>
         </div>
         <div id="right_navbar">
             <ul id="navbar_list">
-                <li><a href="home.html">Home</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="players.html">Players</a></li>
                 <li><a href="teams.html">Teams</a></li>
                 <li><a href="about.html">About</a></li>
@@ -106,7 +103,26 @@
         </div>
     </div>
 
-    <div id="player_audio_container">
+    <div id="home_title_container">
+        <h1>Welcome</h1>
+    </div>
+
+    <div id="myslidercontainer">
+        <div id="myslider">
+            <img src="Image1.jpg" alt="Image1">
+            <img src="Image2.jpg" alt="Image2">
+            <img src="Image3.jpg" alt="Image3">
+            <img src="Image4.jpg" alt="Image4">
+            <img src="Image5.jpg" alt="Image5">
+            <img src="Image6.jpg" alt="Image6">
+            <img src="Image7.jpg" alt="Image7">
+            <img src="Image8.jpg" alt="Image8">
+            <img src="Image9.jpg" alt="Image9">
+            <img src="Image10.jpg" alt="Image10">
+        </div>
+    </div>
+
+    <div id="home_audio_container">
         <h2>In this web page there are options to Navigate using Audio!</h2>
         <p style="font-size: 0.9;">Ensure your Mic is enabled to be able to use this feature</p>
         <ul>
@@ -118,43 +134,13 @@
         <button id="turn_on_audio">Turn On Audio</button>
         <button id="turn_off_audio">Turn Off Audio</button>
     </div>
-
-    <div id="players_container"></div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
 <script>
-    //pwrd: f6LhcFB9NmsCIPnX
-    async function loadPlayers() {
-        try {
-            const response = await fetch('/api/players');
-            const players = await response.json();
-
-            const container = document.getElementById('players_container');
-            container.innerHTML = ''; 
-
-            players.forEach(player => {
-                const card = document.createElement('div');
-                card.classList.add('player_card');
-
-                card.innerHTML = `
-                <h3>${player.first_name} ${player.last_name}</h3>
-                <p><strong>Team:</strong> ${player.team_name}</p>
-                <p><strong>Position:</strong> ${player.position}</p>
-                <p><strong>Number:</strong> ${player.jersey_number}</p>
-                <p><strong>College:</strong> ${player.college}</p>
-                <p><strong>Draft:</strong> ${player.draft_year}, Round ${player.draft_round}, Pick ${player.draft_number}</p>
-                <p><strong>Height:</strong> ${player.height}</p>
-                <p><strong>Weight:</strong> ${player.weight}</p>
-                `;
-
-                container.appendChild(card);
-            });
-        } catch (err) {
-            console.error('Error loading players:', err);
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', loadPlayers);
+    simpleslider.getSlider({
+        container: document.getElementById('myslider'),
+        transitionTime: 1,
+        delay: 3
+    });
 
     window.addEventListener("DOMContentLoaded", () => {
         if (annyang) {

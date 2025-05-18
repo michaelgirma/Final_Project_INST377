@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INST377 FInal Project</title>
+    <title>INST377 Final Project</title>
     <style>
         body {
             background-color: cornflowerblue;
@@ -48,14 +48,36 @@
             color: black;
         }
 
-        #about_text_container {
+        #players_container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex-wrap: wrap;
             justify-content: center;
+            width: 100%;
+            gap: 20px;
+            padding: 20px;
         }
 
-        #about_audio_container {
+        .player_card {
+            background-color: black;
+            color: cornflowerblue;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 15px;
+            width: 275px;
+            text-align: center;
+        }
+
+        .player_card h3 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .player_card p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        #player_audio_container {
             height: 75%;
             width: 45%;
             color: white;
@@ -63,17 +85,20 @@
             background-color: black;
             border-radius: 10px;
             border: 1px solid black;
+            margin-left: 380px;
+            margin-top: 20px;
         }
+
     </style>
 </head>
 <body>
     <div id="navbar_container">
-        <div id="left_navbar">
+        <div id="left_navbar"> 
             <p>HoopData</p>
         </div>
         <div id="right_navbar">
             <ul id="navbar_list">
-                <li><a href="home.html">Home</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="players.html">Players</a></li>
                 <li><a href="teams.html">Teams</a></li>
                 <li><a href="about.html">About</a></li>
@@ -81,40 +106,63 @@
         </div>
     </div>
 
-    <div id="about_text_container">
-        <h1>Welcome to HoopData</h1>
-        <p><strong>Overview:</strong> HoopData is a website that allows fans of the NBA to educate themselves about nba athletes from the spelling of their name to the year they got drafted. You can also see information about all the teams in the NBA.</p>
-        <ol>
-            <li><strong>Instructions</strong></li>
-            <ol>
-                <li>Use the navbar to navigate to different webpages.</li>
-                <li>Scroll up down with your mousepad to see all the different information.</li>
-                <li>Try out voice commands to navigate the website as well.</li>
-            </ol>
-        </ol>
-
-        <div id="about_audio_container">
-            <h2>In this web page there are options to Navigate using Audio!</h2>
-            <p style="font-size: 0.9;">Ensure your Mic is enabled to be able to use this feature</p>
+    <div id="player_audio_container">
+        <h2>In this web page there are options to Navigate using Audio!</h2>
+        <p style="font-size: 0.9;">Ensure your Mic is enabled to be able to use this feature</p>
+        <ul>
+            <li>Navigate to a Different Page</li>
             <ul>
-                <li>Navigate to a Different Page</li>
-                <ul>
-                    <li>Say: <strong>Navigate to (page)</strong></li>
-                </ul>
+                <li>Say: <strong>Navigate to (page)</strong></li>
             </ul>
-            <button id="turn_on_audio">Turn On Audio</button>
-            <button id="turn_off_audio">Turn Off Audio</button>
-        </div>
+        </ul>
+        <button id="turn_on_audio">Turn On Audio</button>
+        <button id="turn_off_audio">Turn Off Audio</button>
     </div>
+
+    <div id="players_container"></div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
 <script>
+    //pwrd: f6LhcFB9NmsCIPnX
+    async function loadPlayers() {
+        try {
+            const response = await fetch('/api/players');
+            const players = await response.json();
+
+            const container = document.getElementById('players_container');
+            container.innerHTML = ''; 
+
+            players.forEach(player => {
+                const card = document.createElement('div');
+                card.classList.add('player_card');
+
+                card.innerHTML = `
+                <h3>${player.first_name} ${player.last_name}</h3>
+                <p><strong>Team:</strong> ${player.team_name}</p>
+                <p><strong>Position:</strong> ${player.position}</p>
+                <p><strong>Number:</strong> ${player.jersey_number}</p>
+                <p><strong>College:</strong> ${player.college}</p>
+                <p><strong>Draft:</strong> ${player.draft_year}, Round ${player.draft_round}, Pick ${player.draft_number}</p>
+                <p><strong>Height:</strong> ${player.height}</p>
+                <p><strong>Weight:</strong> ${player.weight}</p>
+                `;
+
+                container.appendChild(card);
+            });
+        } catch (err) {
+            console.error('Error loading players:', err);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadPlayers);
+
     window.addEventListener("DOMContentLoaded", () => {
         if (annyang) {
             const commands = {
                 'navigate to *page': (page) => {
                     const lowercase_page = page.toLowerCase();
                     if (lowercase_page.includes('home')) {
-                        window.location.href = 'home.html';
+                        window.location.href = 'index.html';
                     } else if (lowercase_page.includes('players')) {
                         window.location.href = 'players.html';
                     } else if (lowercase_page.includes('teams')) {

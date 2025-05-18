@@ -30,14 +30,14 @@
 
 ## Set Up Instructions
 1. Clone the Repository to install application
-- git clone https://github.com/YourUserName/Final_Project_INST377.git
+- git clone https://github.com/michaelgirma/Final_Project_INST377.git
 - cd Final_Project_INST377
 2. Install dependencies
 - npm init -y (is you dont have package.json file)
-- npm install express dotenv supabase-js
+- npm install dotenv supabase-js
 
 ## Run your application on a server
-- run (node index.js) in your terminal
+- run (vercel dev) in your terminal
 - copy local host link and paste on any platform
 
 ## Tests

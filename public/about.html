@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INST377 Final Project</title>
+    <title>INST377 FInal Project</title>
     <style>
         body {
             background-color: cornflowerblue;
@@ -48,32 +48,14 @@
             color: black;
         }
 
-        #myslidercontainer {
+        #about_text_container {
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-        }
-
-        #myslider { 
-            width: 80%; 
-            height: 300px; 
-            margin-left: 520px;
-            margin-top: 50px;
-        }
-
-        #home_title_container {
-            display: flex;
             justify-content: center;
-            align-items: center;
-            width: 100%;
         }
 
-        #home_title_container h1 {
-            font-size: 100px;
-        }
-
-        #home_audio_container {
+        #about_audio_container {
             height: 75%;
             width: 45%;
             color: white;
@@ -81,12 +63,8 @@
             background-color: black;
             border-radius: 10px;
             border: 1px solid black;
-            margin-left: 380px;
-            margin-top: 20px;
         }
-
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/simple-slider@1.0.0/dist/simpleslider.min.js"></script>
 </head>
 <body>
     <div id="navbar_container">
@@ -95,7 +73,7 @@
         </div>
         <div id="right_navbar">
             <ul id="navbar_list">
-                <li><a href="home.html">Home</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="players.html">Players</a></li>
                 <li><a href="teams.html">Teams</a></li>
                 <li><a href="about.html">About</a></li>
@@ -103,52 +81,40 @@
         </div>
     </div>
 
-    <div id="home_title_container">
-        <h1>Welcome</h1>
-    </div>
+    <div id="about_text_container">
+        <h1>Welcome to HoopData</h1>
+        <p><strong>Overview:</strong> HoopData is a website that allows fans of the NBA to educate themselves about nba athletes from the spelling of their name to the year they got drafted. You can also see information about all the teams in the NBA.</p>
+        <ol>
+            <li><strong>Instructions</strong></li>
+            <ol>
+                <li>Use the navbar to navigate to different webpages.</li>
+                <li>Scroll up down with your mousepad to see all the different information.</li>
+                <li>Try out voice commands to navigate the website as well.</li>
+            </ol>
+        </ol>
 
-    <div id="myslidercontainer">
-        <div id="myslider">
-            <img src="Image1.jpg" alt="Image1">
-            <img src="Image2.jpg" alt="Image2">
-            <img src="Image3.jpg" alt="Image3">
-            <img src="Image4.jpg" alt="Image4">
-            <img src="Image5.jpg" alt="Image5">
-            <img src="Image6.jpg" alt="Image6">
-            <img src="Image7.jpg" alt="Image7">
-            <img src="Image8.jpg" alt="Image8">
-            <img src="Image9.jpg" alt="Image9">
-            <img src="Image10.jpg" alt="Image10">
-        </div>
-    </div>
-
-    <div id="home_audio_container">
-        <h2>In this web page there are options to Navigate using Audio!</h2>
-        <p style="font-size: 0.9;">Ensure your Mic is enabled to be able to use this feature</p>
-        <ul>
-            <li>Navigate to a Different Page</li>
+        <div id="about_audio_container">
+            <h2>In this web page there are options to Navigate using Audio!</h2>
+            <p style="font-size: 0.9;">Ensure your Mic is enabled to be able to use this feature</p>
             <ul>
-                <li>Say: <strong>Navigate to (page)</strong></li>
+                <li>Navigate to a Different Page</li>
+                <ul>
+                    <li>Say: <strong>Navigate to (page)</strong></li>
+                </ul>
             </ul>
-        </ul>
-        <button id="turn_on_audio">Turn On Audio</button>
-        <button id="turn_off_audio">Turn Off Audio</button>
+            <button id="turn_on_audio">Turn On Audio</button>
+            <button id="turn_off_audio">Turn Off Audio</button>
+        </div>
     </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
 <script>
-    simpleslider.getSlider({
-        container: document.getElementById('myslider'),
-        transitionTime: 1,
-        delay: 3
-    });
-
     window.addEventListener("DOMContentLoaded", () => {
         if (annyang) {
             const commands = {
                 'navigate to *page': (page) => {
                     const lowercase_page = page.toLowerCase();
                     if (lowercase_page.includes('home')) {
-                        window.location.href = 'home.html';
+                        window.location.href = 'index.html';
                     } else if (lowercase_page.includes('players')) {
                         window.location.href = 'players.html';
                     } else if (lowercase_page.includes('teams')) {
